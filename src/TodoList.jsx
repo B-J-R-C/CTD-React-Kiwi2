@@ -2,6 +2,7 @@
 
 import React from 'react';
 //import './styles.css'; // for when add a styles.css
+import TodoListItem from './TodoListItem'; // Import the new component
 
 function TodoList() {
   // Move the todos array over to TodoList.jsx
@@ -11,13 +12,12 @@ function TodoList() {
     { id: 3, text: 'code out app' },
   ];
 
-  return (
+return (
     <div>
-      
+     
       <ul>
-        {todos.map(todo => (
-           <li key={todo.id}>{todo.text}
-          </li>
+        {todos.map((todo) => (
+          <TodoListItem key={todo.id} todo={todo.text} />
         ))}
       </ul>
     </div>
