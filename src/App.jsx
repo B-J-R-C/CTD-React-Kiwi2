@@ -1,7 +1,5 @@
 
 
-
-
 import React, { useState } from 'react'; // Import useState hook
 import TodoList from './TodoList'; // Import TodoList
 import TodoForm from './TodoForm'; // Import TodoForm
@@ -9,20 +7,27 @@ import TodoForm from './TodoForm'; // Import TodoForm
 //import './styles.css';
 
 function App() {
-  // Creates new state value for new todo
-  const [newTodo, setNewTodo] = useState("Text  will be displayed when the component first renders");
+  // Rename state variable & change initial value to empty array
+  const [todoList, setTodoList] = useState([]);
+
+  // Create the addTodo handler function
+  const addTodo = (title) => {
+    // Create a newTodo object with title & unique id
+    const newTodo = {
+      id: Date.now(),
+      title: title,
+    };
+    // Update the todoList state with new todo
+    setTodoList([...todoList, newTodo]);
+  };
 
   return (
     <div className="app-container">
       <div className="todo-app">
         <h1>Todo List</h1>
-        <TodoForm />
         
-        {/* paragraph element that displays the current value of the newTodo state variable */}
-        <p>{newTodo}</p>
-
-        <TodoList />
-        
+        {/* Pass the addTodo function as prop */}
+         <TodoList todoList={todoList} />
       </div>
     </div>
   );
