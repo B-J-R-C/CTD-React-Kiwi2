@@ -1,9 +1,9 @@
-//import React from 'react';
+import React from 'react';
 
 function TodoListItem({ todo }) {
   return (
     <li>
-      {todo}
+      {todo.title}
     </li>
   );
 }

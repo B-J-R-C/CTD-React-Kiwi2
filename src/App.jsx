@@ -27,6 +27,7 @@ function App() {
         <h1>Todo List</h1>
         
         {/* Pass the addTodo function as prop */}
+        <TodoForm onAddTodo={addTodo} />
          <TodoList todoList={todoList} />
       </div>
     </div>

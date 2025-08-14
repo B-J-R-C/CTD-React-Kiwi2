@@ -1,19 +1,14 @@
 
 
 import React from 'react';
-//import './styles.css'; // for when add a styles.css
-import TodoListItem from './TodoListItem'; // Import the new component
+import TodoListItem from './TodoListItem';
 
-// Destructure todoList from the props argument
 function TodoList({ todoList }) {
-  // local todos array removed
-
   return (
     <div>
-      
       <ul>
-        {/* Map over todoList - passed in as a prop */}
         {todoList.map((todo) => (
+          // Pass the entire todo object, not just the title string
           <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
