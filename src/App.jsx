@@ -16,9 +16,21 @@ function App() {
     const newTodo = {
       id: Date.now(),
       title: title,
+      isCompleted: false,
     };
     // Update the todoList state with new todo
     setTodoList([...todoList, newTodo]);
+  };
+
+  const completeTodo = (id) => {
+    const updatedTodos = todoList.map((todo) => {
+      if (todo.id === id) {
+        return {...todo, isCompleted: true };
+      }
+      return todo;
+    }
+  );
+  setTodoList(updatedTodos);
   };
 
   return (
@@ -28,7 +40,7 @@ function App() {
         
         {/* Pass the addTodo function as prop */}
         <TodoForm onAddTodo={addTodo} />
-         <TodoList todoList={todoList} />
+         <TodoList todoList={todoList} onCompleteTodo={completeTodo}/>
       </div>
     </div>
   );
