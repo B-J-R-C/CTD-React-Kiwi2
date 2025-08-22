@@ -1,9 +1,16 @@
-//import React from 'react';
+import React from 'react';
 
-function TodoListItem({ todo }) {
+function TodoListItem({ todo, onCompleteTodo }) {
   return (
     <li>
-      {todo}
+      <form>
+        <input
+        type='checkbox'
+        checked={todo.isCompleted}
+        onChange={() => onCompleteTodo(todo.id)}
+        />
+        {todo.title}
+      </form>
     </li>
   );
 }

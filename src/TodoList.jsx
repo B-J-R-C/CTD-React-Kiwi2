@@ -1,25 +1,24 @@
 
 
 import React from 'react';
-//import './styles.css'; // for when add a styles.css
-import TodoListItem from './TodoListItem'; // Import the new component
+import TodoListItem from './TodoListItem';
 
-function TodoList() {
-  // Move the todos array over to TodoList.jsx
-  const todos = [
-    { id: 1, text: 'review resources' },
-    { id: 2, text: 'take notes'  },
-    { id: 3, text: 'code out app' },
-  ];
-
-return (
+function TodoList({ todoList, onCompleteTodo }) {
+  const filteredTodoList = todoList.filter((todo) => !todo.isCompleted);
+  return (
     <div>
-     
+      {filteredTodoList.length === 0 ? (
+        <p>Add a todo above to get started</p>
+      ) : (
       <ul>
-        {todos.map((todo) => (
-          <TodoListItem key={todo.id} todo={todo.text} />
+        {filteredTodoList.map((todo) => (
+          // Pass the entire todo object, not just the title string
+          <TodoListItem key={todo.id} todo={todo} 
+          onCompleteTodo={onCompleteTodo}
+          />
         ))}
       </ul>
+      )}
     </div>
   );
 }
