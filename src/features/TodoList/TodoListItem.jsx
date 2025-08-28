@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TextInputWithLabel from '../shared/TextInputWithLabel';
+import TextInputWithLabel from '../../shared/TextInputWithLabel';
 
 function TodoListItem({ todo, onCompleteTodo }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -17,10 +17,17 @@ function TodoListItem({ todo, onCompleteTodo }) {
     setWorkingTitle(event.target.value);
   };
 
+  // Handler for the new Update button
+  const handleUpdate = () => {
+    // This function will be implemented later to save changes
+    console.log("Update clicked with new title:", workingTitle);
+    setIsEditing(false);
+  };
+
   return (
     <li>
       {isEditing ? (
-        // If isEditing is true, display the TextInputWithLabel and a Cancel button
+        // If isEditing is true, display the TextInputWithLabel and buttons
         <>
           <TextInputWithLabel 
             value={workingTitle} 
@@ -28,6 +35,9 @@ function TodoListItem({ todo, onCompleteTodo }) {
           />
           <button type="button" onClick={handleCancel}>
             Cancel
+          </button>
+          <button type="button" onClick={handleUpdate}>
+            Update
           </button>
         </>
       ) : (
@@ -48,3 +58,4 @@ function TodoListItem({ todo, onCompleteTodo }) {
 }
 
 export default TodoListItem;
+
