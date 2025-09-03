@@ -1,8 +1,8 @@
 
 
 import React, { useState } from 'react'; // Import useState hook
-import TodoList from './TodoList'; // Import TodoList
-import TodoForm from './TodoForm'; // Import TodoForm
+import TodoList from './features/TodoList/TodoList'; // Import TodoList - new location
+import TodoForm from './features/TodoForm'; // Import TodoForm from new location
 
 //import './styles.css';
 
