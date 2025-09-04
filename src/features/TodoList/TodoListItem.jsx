@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
 
-function TodoListItem({ todo, onCompleteTodo }) {
+function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
-  // Create a new state variable, workingTitle, with todo.title as the initialValue
   const [workingTitle, setWorkingTitle] = useState(todo.title);
+
+  // Use useEffect to reset the workingTitle when the todo prop changes
+  useEffect(() => {
+    setWorkingTitle(todo.title);
+  }, [todo]);
 
   // Create a handleCancel event helper
   const handleCancel = () => {
@@ -19,8 +23,8 @@ function TodoListItem({ todo, onCompleteTodo }) {
 
   // Handler for the new Update button
   const handleUpdate = () => {
-    // This function will be implemented later to save changes
-    console.log("Update clicked with new title:", workingTitle);
+    // Call the onUpdateTodo prop with the new todo object
+    onUpdateTodo({ ...todo, title: workingTitle });
     setIsEditing(false);
   };
 
