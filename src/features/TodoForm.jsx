@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import TextInputWithLabel from '../shared/TextInputWithLabel'; // Updated import path
+import TextInputWithLabel from '../shared/TextInputWithLabel';
 // import './styles.css';
 
-function TodoForm({ onAddTodo }) {
+function TodoForm({ onAddTodo, isSaving }) { // Added isSaving prop
   const todoTitleInput = useRef("");
 
   const [workingTodoTitle, setWorkingTodoTitle] = useState('');
@@ -32,8 +32,8 @@ function TodoForm({ onAddTodo }) {
         value={workingTodoTitle}
         onChange={(e) => setWorkingTodoTitle(e.target.value)}
       />
-      <button type="submit" disabled={!workingTodoTitle}>
-        Add Todo
+      <button type="submit" disabled={!workingTodoTitle || isSaving}>
+        {isSaving ? 'Saving...' : 'Add Todo'}
       </button>
     </form>
   );
