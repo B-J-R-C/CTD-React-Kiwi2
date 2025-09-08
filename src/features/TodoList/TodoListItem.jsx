@@ -5,25 +5,25 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
 
-  // Use useEffect to reset the workingTitle when the todo prop changes
+  // Use useEffect to reset workingTitle when todo prop changes
   useEffect(() => {
     setWorkingTitle(todo.title);
   }, [todo]);
 
-  // Create a handleCancel event helper
+  // Create handleCancel event helper
   const handleCancel = () => {
     setWorkingTitle(todo.title); // Reset the workingTitle to the original todo.title
     setIsEditing(false); // Set isEditing to false to exit edit mode
   };
 
-  // Create a handleEdit event helper that updates the workingTitle state
+  // Create a handleEdit event helper to update workingTitle state
   const handleEdit = (event) => {
     setWorkingTitle(event.target.value);
   };
 
-  // Handler for the new Update button
+  // Handler for new Update button
   const handleUpdate = () => {
-    // Call the onUpdateTodo prop with the new todo object
+    // Call onUpdateTodo prop with the new todo object
     onUpdateTodo({ ...todo, title: workingTitle });
     setIsEditing(false);
   };

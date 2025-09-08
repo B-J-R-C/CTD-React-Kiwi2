@@ -1,16 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import TodoList from './features/TodoList/TodoList';
 import TodoForm from './features/TodoForm';
+import TodosViewForm from './features/TodosViewForm';
 
 //import './styles.css';
+
+// Define the Airtable URL components outside of the component function
+const airtableBaseUrl = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
+
+const encodeUrl = ({ sortField, sortDirection, queryString }) => {
+  let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
+  let searchQuery = '';
+  if (queryString) {
+    searchQuery = `&filterByFormula=SEARCH("${queryString}",+title)`;
+  }
+  return encodeURI(`${airtableBaseUrl}?${sortQuery}${searchQuery}`);
+};
 
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  
+  const [sortField, setSortField] = useState("createdTime");
+  const [sortDirection, setSortDirection] = useState("desc");
+  const [queryString, setQueryString] = useState(""); // New state for search query
 
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
   const token = `Bearer ${import.meta.env.VITE_PAT}`;
 
   useEffect(() => {
@@ -24,7 +40,7 @@ function App() {
       };
 
       try {
-        const resp = await fetch(url, options);
+        const resp = await fetch(encodeUrl({ sortField, sortDirection, queryString }), options);
         if (!resp.ok) {
           throw new Error(`Error: ${resp.status}`);
         }
@@ -47,7 +63,7 @@ function App() {
       }
     };
     fetchTodos();
-  }, [token, url]);
+  }, [token, sortField, sortDirection, queryString]);
 
   const addTodo = async (title) => {
     const payload = {
@@ -71,7 +87,7 @@ function App() {
 
     try {
       setIsSaving(true);
-      const resp = await fetch(url, options);
+      const resp = await fetch(airtableBaseUrl, options);
       if (!resp.ok) {
         throw new Error(`Error: ${resp.status}`);
       }
@@ -123,7 +139,7 @@ function App() {
     };
 
     try {
-      const resp = await fetch(url, options);
+      const resp = await fetch(airtableBaseUrl, options);
       if (!resp.ok) {
         throw new Error(`Error: ${resp.status}`);
       }
@@ -172,7 +188,7 @@ function App() {
     };
 
     try {
-      const resp = await fetch(url, options);
+      const resp = await fetch(airtableBaseUrl, options);
       if (!resp.ok) {
         throw new Error(`Error: ${resp.status}`);
       }
@@ -198,6 +214,15 @@ function App() {
           onCompleteTodo={completeTodo}
           onUpdateTodo={updateTodo}
           isLoading={isLoading}
+        />
+        <hr />
+        <TodosViewForm
+          sortField={sortField}
+          setSortField={setSortField}
+          sortDirection={sortDirection}
+          setSortDirection={setSortDirection}
+          queryString={queryString}
+          setQueryString={setQueryString}
         />
         {errorMessage && (
           <div>
