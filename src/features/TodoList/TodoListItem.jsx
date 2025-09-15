@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
 
-function TodoListItem({ todo, onCompleteTodo }) {
+function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
-  // Create a new state variable, workingTitle, with todo.title as the initialValue
   const [workingTitle, setWorkingTitle] = useState(todo.title);
 
-  // Create a handleCancel event helper
+  // Use useEffect to reset workingTitle when todo prop changes
+  useEffect(() => {
+    setWorkingTitle(todo.title);
+  }, [todo]);
+
+  // Create handleCancel event helper
   const handleCancel = () => {
     setWorkingTitle(todo.title); // Reset the workingTitle to the original todo.title
     setIsEditing(false); // Set isEditing to false to exit edit mode
   };
 
-  // Create a handleEdit event helper that updates the workingTitle state
+  // Create a handleEdit event helper to update workingTitle state
   const handleEdit = (event) => {
     setWorkingTitle(event.target.value);
   };
 
-  // Handler for the new Update button
+  // Handler for new Update button
   const handleUpdate = () => {
-    // This function will be implemented later to save changes
-    console.log("Update clicked with new title:", workingTitle);
+    // Call onUpdateTodo prop with the new todo object
+    onUpdateTodo({ ...todo, title: workingTitle });
     setIsEditing(false);
   };
 
