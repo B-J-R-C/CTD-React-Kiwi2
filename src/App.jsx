@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import TodoList from './features/TodoList/TodoList';
 import TodoForm from './features/TodoForm';
 import TodosViewForm from './features/TodosViewForm';
+import styles from './App.module.css'; // Import the CSS module
 
-// Define Airtable URL base outside of the component function
+// Define the Airtable URL base outside of the component function
 const airtableBaseUrl = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
 
 function App() {
@@ -18,7 +19,6 @@ function App() {
 
   const token = `Bearer ${import.meta.env.VITE_PAT}`;
 
-  // Memoize encodeUrl function using useCallback
   const encodeUrl = useCallback(() => {
     let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
     let searchQuery = '';
@@ -159,7 +159,6 @@ function App() {
     const originalTodo = todoList.find((todo) => todo.id === id);
     const updatedTodo = { ...originalTodo, isCompleted: true };
     
-    // Optimistic UI Update
     setTodoList(
       todoList.map((todo) =>
         todo.id === updatedTodo.id ? updatedTodo : todo
@@ -194,7 +193,6 @@ function App() {
     } catch (error) {
       console.log(error);
       setErrorMessage(`${error.message}. Reverting completion...`);
-      // Revert UI on error
       setTodoList(
         todoList.map((todo) =>
           todo.id === originalTodo.id ? originalTodo : todo
@@ -204,8 +202,8 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <div className="todo-app">
+     <div className={styles.appContainer}>
+      <div className={styles.todoApp}>
         <h1>Todo List</h1>
         <TodoForm onAddTodo={addTodo} isSaving={isSaving} />
         <TodoList
@@ -224,7 +222,7 @@ function App() {
           setQueryString={setQueryString}
         />
         {errorMessage && (
-          <div>
+          <div className={styles.errorMessage}>
             <hr />
             <p>{errorMessage}</p>
             <button onClick={() => setErrorMessage("")}>Dismiss</button>
