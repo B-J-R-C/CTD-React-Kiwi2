@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+//import { FaTrashAlt, FaCheckSquare, FaEdit } from "react-icons/fa";
+//import { FaSquare } from "react-icons/fa6";
 import TextInputWithLabel from '../../shared/TextInputWithLabel';
+import styles from './TodoListItem.module.css'; // Import the CSS module
 
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -29,7 +32,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   };
 
   return (
-    <li>
+    <li className={styles.todoListItem}>
       {isEditing ? (
         // If isEditing is true, display the TextInputWithLabel and buttons
         <>
