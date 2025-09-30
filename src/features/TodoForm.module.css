@@ -1,0 +1,10 @@
+
+.todoForm {
+  /* Add ext padding above and below */
+  padding: 1rem 0; 
+}
+
+/* italic disabled  button etc */
+.todoForm button:disabled {
+  font-style: italic;
+}
