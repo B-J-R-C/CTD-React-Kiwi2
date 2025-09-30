@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import TextInputWithLabel from '../shared/TextInputWithLabel';
-// import './styles.css';
+import styles from './TodoForm.module.css'; // Import the CSS module
 
-function TodoForm({ onAddTodo, isSaving }) { // Added isSaving prop
+function TodoForm({ onAddTodo, isSaving }) {
   const todoTitleInput = useRef("");
 
   const [workingTodoTitle, setWorkingTodoTitle] = useState('');
@@ -24,7 +24,7 @@ function TodoForm({ onAddTodo, isSaving }) { // Added isSaving prop
   };
 
   return (
-    <form className="todo-form" onSubmit={handleAddTodo}>
+    <form className={styles.todoForm} onSubmit={handleAddTodo}>
       <TextInputWithLabel
         elementId="todoTitle"
         label="Todo"
@@ -32,7 +32,10 @@ function TodoForm({ onAddTodo, isSaving }) { // Added isSaving prop
         value={workingTodoTitle}
         onChange={(e) => setWorkingTodoTitle(e.target.value)}
       />
-      <button type="submit" disabled={!workingTodoTitle || isSaving}>
+      <button 
+        type="submit" 
+        disabled={!workingTodoTitle || isSaving}
+      >
         {isSaving ? 'Saving...' : 'Add Todo'}
       </button>
     </form>
