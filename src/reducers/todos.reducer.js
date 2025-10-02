@@ -1,7 +1,4 @@
-/**
- * Defines all possible actions (events) that can occur in the todo application,
- * mapping descriptive names to their string identifiers.
- */
+git add .
 export const actions = {
     // actions in useEffect that loads todos
     fetchTodos: 'fetchTodos',
@@ -30,3 +27,59 @@ export const initialState = {
   isSaving: false,
   errorMessage: "",
 };
+
+/**
+ * The reducer function determines how the state changes in response to an action.
+ 
+ * @param {object} state - The current state, defaults to initialState.
+ * @param {object} action - The action dispatched (must have a type property).
+ * @returns {object} The new state object.
+ */
+export function reducer(state = initialState, action) {
+  switch (action.type) {
+    case actions.fetchTodos:
+      return {
+        ...state,
+      };
+    case actions.loadTodos:
+      return {
+        ...state,
+      };
+    case actions.setLoadError:
+      return {
+        ...state,
+      };
+    case actions.startRequest:
+      return {
+        ...state,
+      };
+    case actions.addTodo:
+      return {
+        ...state,
+      };
+    case actions.endRequest:
+      return {
+        ...state,
+      };
+    case actions.updateTodo:
+      return {
+        ...state,
+      };
+    case actions.completeTodo:
+      return {
+        ...state,
+      };
+    case actions.revertTodo:
+      return {
+        ...state,
+      };
+    case actions.clearError:
+      return {
+        ...state,
+      };
+    default:
+      return state;
+  }
+}
+
+// Ensure reducer is exported for use in the component
