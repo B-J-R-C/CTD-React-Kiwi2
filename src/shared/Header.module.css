@@ -21,7 +21,7 @@
   text-decoration: none;
 }
 
-/* Style NavLink states using the class names*/
+/* Style NavLink states using class names*/
 .active {
   color: #808080;
 }
