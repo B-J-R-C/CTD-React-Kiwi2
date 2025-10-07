@@ -1,0 +1,31 @@
+
+.header {
+  position: relative; 
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.h1 {
+  text-align: center; /* Center h1 */
+}
+
+/* Styles for NavLinks - side-by-side */
+.nav {
+  position: absolute; /* Position nav */
+  top: 1rem;
+  right: 1rem;
+}
+
+.nav a {
+  margin-left: 1rem; /* Space between links */
+  text-decoration: none;
+}
+
+/* Style NavLink states using the class names*/
+.active {
+  color: #808080;
+}
+
+.inactive {
+  color: #000000;
+}
